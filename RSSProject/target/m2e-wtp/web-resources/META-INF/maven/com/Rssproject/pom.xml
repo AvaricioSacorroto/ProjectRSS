@@ -8,51 +8,120 @@
 	<packaging>war</packaging>
 
 	<dependencies>
+	<dependency>
+  <groupId>jstl</groupId>
+  <artifactId>jstl</artifactId>
+  <version>1.2</version>
+</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>4.3.20.RELEASE</version>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
 		</dependency>
-		<dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-beans</artifactId>
-        <version>4.3.20.RELEASE</version>
-    </dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>4.3.20.RELEASE</version>
+			<version>3.2.18.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>4.3.20.RELEASE</version>
+			<version>3.2.18.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>commons-logging</artifactId>
+					<groupId>commons-logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-context</artifactId>
-			<version>4.3.20.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aop</artifactId>
-			<version>4.3.20.RELEASE</version>
+			<artifactId>spring-webmvc</artifactId>
+			<version>3.2.18.RELEASE</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>3.2.18.RELEASE</version>
+		</dependency>
+		<!-- -ADDED  29-->
+		  <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <version>3.2.18.RELEASE</version>
+    </dependency>
+    <dependency>
+    <groupId>commons-dbcp</groupId>
+    <artifactId>commons-dbcp</artifactId>
+    <version>1.2.2</version>
+</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>4.2.21.Final</version>
+</dependency>
+<dependency>
+  <groupId>javax.persistence</groupId>
+  <artifactId>persistence-api</artifactId>
+  <version>1.0.2</version>
+</dependency>
+
+<dependency>
+    <groupId>org.hibernate.javax.persistence</groupId>
+    <artifactId>hibernate-jpa-2.0-api</artifactId>
+    <version>1.0.0.Final</version>
+</dependency>
+ 
+
+		<!-- https://mvnrepository.com/artifact/hibernate-entitymanager/hibernate-entitymanager -->
+		<!-- <dependency> <groupId>hibernate-entitymanager</groupId> <artifactId>hibernate-entitymanager</artifactId> 
+			<version>3.2.1.GA</version> <scope>provided</scope> </dependency> -->
+
+		<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/rome/rome -->
+
+
+		<!-- slf4j slf4j-log4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.slf4j/jcl-over-slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>1.7.25</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.25</version>
+
+		</dependency>
+	<!-- https://mvnrepository.com/artifact/rome/rome -->
 		<dependency>
 			<groupId>rome</groupId>
 			<artifactId>rome</artifactId>
 			<version>1.0</version>
 		</dependency>
-
-
 	</dependencies>
 	<!--  
 	<build>
