@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+
+	<http auto-config="true"
+		authentication-manager-ref="customAuthenticationManager">
+		<access-denied-handler error-page="/403" />
+		<intercept-url pattern="/login**"
+            access="IS_AUTHENTICATED_ANONYMOUSLY" />
+            <intercept-url pattern="/rrsView**"
+            access="ROLE_USER" />
+	    <form-login login-page="/login"
+			default-target-url="/rrsView"
+			authentication-failure-url="/login?action=error"
+			username-parameter="username" password-parameter="password" />
+		<logout logout-success-url="/login?logout" />
+		<!-- enable csrf protection -->
+		<csrf />
+	</http>
+
+	<authentication-manager
+		id="customAuthenticationManager" alias="customAuthenticationManager">
+		<authentication-provider
+			user-service-ref="userDetailsService">
+		</authentication-provider>
+		
+	</authentication-manager>
+<b:bean id="userDetailsService"
+        class="com.rssproject.web.security.CustomUserDetailsService" />
+</b:beans>

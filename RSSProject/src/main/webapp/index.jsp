@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="RRS">Click here to See Welcome Message... </a>
+<a href="rrsView">Click here to See Welcome Message... </a>
 </body>
 </html>
