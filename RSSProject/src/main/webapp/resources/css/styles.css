@@ -1,6 +1,42 @@
 body {
-    background-color: lightblue;
+    
 }
 #icon{
-	width: 115px; 
+    width: 115px; 
+}
+.feed{
+    color:lightorange;
+    border: 2px solid darkorange;
+    border-radius: 5px;
+    display:flex;
+    padding:6px;
+
+}
+.feed *{
+    flex-grow:1;
+    padding-left:6px;
+}
+.entrie , .close , .entries{
+    border: 1px solid orange;
+    border-radius: 5px;
+}
+.template{
+    display:flex;
+    flex-flow: column;
+}
+.header{
+   border-bottom: 1px solid orange; 
+}
+.main{
+      display:flex;
+      flex-flow: row;
+}
+.menu{
+    flex-grow:2;
+}
+.body{
+    flex-grow:8;
+}
+.space{
+    flex-grow:1;
 }

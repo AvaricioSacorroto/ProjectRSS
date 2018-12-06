@@ -12,9 +12,9 @@
         <put-attribute name="footer" value="/WEB-INF/jsp/footer.jsp" />  
     </definition>  
   
-    <definition name="rrsView" extends="base.definition">  
+    <definition name="rrs" extends="base.definition">  
         <put-attribute name="title" value='User' type="string" />  <!-- INTERNACIONALIZAR -->
-        <put-attribute name="body" value="/WEB-INF/jsp/rrsView.jsp" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/rrs.jsp" />  
     </definition>  
     
       <definition name="login" extends="base.definition">  
@@ -24,5 +24,9 @@
    <definition name="accessDenied" extends="base.definition">  
         <put-attribute name="title" value="title.login" />  
         <put-attribute name="body" value="/WEB-INF/jsp/accessDenied.jsp" />  
+    </definition>
+    <definition name="usuario" extends="base.definition">  
+        <put-attribute name="title" value="title.login" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/usuario.jsp" />  
     </definition>
 </tiles-definitions> 

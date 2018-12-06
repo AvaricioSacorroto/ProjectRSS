@@ -12,12 +12,12 @@
 		<access-denied-handler error-page="/403" />
 		<intercept-url pattern="/login**"
             access="IS_AUTHENTICATED_ANONYMOUSLY" />
-            <intercept-url pattern="/rrsView**"
+            <intercept-url pattern="/rrs**"
             access="ROLE_USER" />
 	    <form-login login-page="/login"
-			default-target-url="/rrsView"
+			default-target-url="/rrs"
 			authentication-failure-url="/login?action=error"
-			username-parameter="username" password-parameter="password" />
+			username-parameter="name" password-parameter="password" />
 		<logout logout-success-url="/login?logout" />
 		<!-- enable csrf protection -->
 		<csrf />

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rssproject.api.modelo.Entries;
@@ -16,6 +17,7 @@ import com.rssproject.api.services.UsuarioService;
 import com.rssproject.persistencia.dao.UsuarioDAO;
 import com.rssproject.persistencia.model.UrlEntity;
 import com.rssproject.persistencia.model.UsuarioEntity;
+import com.rssproject.web.forms.UrlForm;
 import com.rssproject.web.forms.UsuarioForm;
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -23,10 +25,22 @@ import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
+@Repository("usuarioService")
 public class UsuarioServiceImpl implements UsuarioService {
 
 	@Autowired
 	UsuarioDAO usuarioDAO;
+
+	@Override
+	@Transactional
+	public void addURL(Long id, UrlForm urlForm) {
+		System.out.println("USUARIO:" + usuarioDAO.getUsuarioById(id).getName());
+		System.out.println("URL to add:" + urlForm.getUrl());
+		UsuarioEntity usuarioEntity = usuarioDAO.getUsuarioById(id);
+		UrlEntity urlEntity = new UrlEntity(urlForm.getUrl());
+		urlEntity.setUsuarioId(usuarioEntity);
+		usuarioEntity.getUrls().add(urlEntity);
+	}
 
 	@Override
 	@Transactional
@@ -57,8 +71,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	@Transactional
-	public Usuario getUsuarioByName(String username) {
-		Usuario usuario = transformUsuarioEntitytoUsuario(usuarioDAO.getUsuarioByUsername(username));
+	public Usuario getUsuarioByName(String name) {
+		UsuarioEntity userEntity = usuarioDAO.getUsuarioByUsername(name);
+		System.out.println("UserEntity:" + userEntity);
+		Usuario usuario = transformUsuarioEntitytoUsuario(userEntity);
 		return usuario;
 	}
 
@@ -78,6 +94,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	private Usuario transformUsuarioEntitytoUsuario(UsuarioEntity usuarioEntity) {
+		if (usuarioEntity == null) {
+			return null;
+		}
 		Usuario usuario = new Usuario();
 		usuario.setName(usuarioEntity.getName());
 		usuario.setPassword(usuarioEntity.getPassword());
@@ -87,10 +106,21 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	}
 
+	@Override
+	@Transactional
+	public List<Feed> getFeedFromId(Long id) {
+		Usuario usuario = getUsuarioById(id);
+		System.out.println("Usuario FIND:" + usuario.getName());
+		return usuario.getFeeds();
+	}
+
 	private List<Feed> getFeeds(List<UrlEntity> urlEntities) {
 		List<Feed> feeds = new ArrayList<Feed>();
 		for (UrlEntity urlEntity : urlEntities) {
-			feeds.add(getFeedsfromUrl(urlEntity.getUrl()));
+			Feed feed = getFeedsfromUrl(urlEntity.getUrl());
+			if (feed != null) {
+				feeds.add(feed);
+			}
 		}
 
 		return feeds;
@@ -101,6 +131,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Feed customFeed = new Feed();
 		try {
 			feed = new SyndFeedInput().build(new XmlReader(new URL(url)));
+
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (MalformedURLException e) {
@@ -137,11 +168,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	private Entries transformSyndEntrytoEntries(SyndEntryImpl syndEntrie) {
 		Entries entries = new Entries();
-
-		entries.setTitle(syndEntrie.getTitle());
-		entries.setDate(syndEntrie.getPublishedDate().toString());
-		entries.setLink(syndEntrie.getLink());
-		entries.setDescriptionValue(syndEntrie.getDescription().getValue());
+		if (syndEntrie.getTitle() != null) {
+			entries.setTitle(syndEntrie.getTitle());
+		}
+		// if (syndEntrie.getPublishedDate().toString() == "") {
+		// entries.setDate(syndEntrie.getPublishedDate().toString());
+		// }
+		if (syndEntrie.getLink() != null) {
+			entries.setLink(syndEntrie.getLink());
+		}
+		if (syndEntrie.getDescription().getValue() != null) {
+			entries.setDescriptionValue(syndEntrie.getDescription().getValue());
+		}
 
 		return entries;
 	}

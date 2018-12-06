@@ -5,25 +5,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "URL")
+@Table(name = "Url")
 public class UrlEntity {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@Column(unique = true)
+
+
 	private String url;
+
+	@ManyToOne
+	@JoinColumn(name = "usuarioId", referencedColumnName = "id", insertable = false, updatable = false)
+	private UsuarioEntity usuarioId;
 
 	public UrlEntity() {
 
 	}
 
-	public UrlEntity(Long id, String url) {
-
-		this.id = id;
+	public UrlEntity(String url) {
 		this.url = url;
 	}
 
@@ -42,5 +47,14 @@ public class UrlEntity {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+	public UsuarioEntity getUsuarioId() {
+		return usuarioId;
+	}
+
+	public void setUsuarioId(UsuarioEntity usuarioId) {
+		this.usuarioId = usuarioId;
+	}
+
 
 }

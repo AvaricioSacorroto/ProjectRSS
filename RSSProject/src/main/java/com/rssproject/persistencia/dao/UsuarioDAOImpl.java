@@ -8,7 +8,6 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.rssproject.persistencia.model.UsuarioEntity;
 
@@ -17,7 +16,7 @@ import com.rssproject.persistencia.model.UsuarioEntity;
 public class UsuarioDAOImpl implements UsuarioDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Override
 	public void addUsuario(UsuarioEntity usuarioEntity) {
 		final Session session = this.sessionFactory.getCurrentSession();
@@ -43,15 +42,17 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		final UsuarioEntity usuarioEntity = (UsuarioEntity) session.load(UsuarioEntity.class, id);
 		return usuarioEntity;
 	}
-	
+
 	@Override
-	public UsuarioEntity getUsuarioByUsername(String username) {
+	public UsuarioEntity getUsuarioByUsername(String name) {
 		final Session session = this.sessionFactory.getCurrentSession();
 		final Criteria criteria = session.createCriteria(UsuarioEntity.class);
-		criteria.add(Restrictions.eq("name", username));
-		return (UsuarioEntity) criteria.uniqueResult();
+		criteria.add(Restrictions.eq("name", name));
+		UsuarioEntity user = (UsuarioEntity) criteria.uniqueResult();
+		System.out.println("UserEntity from criteria:" + user);
+		return user;
 	}
-	
+
 	@Override
 	public void removeUsuario(long id) {
 		final Session session = this.sessionFactory.getCurrentSession();
@@ -60,6 +61,6 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 			session.delete(usuarioEntity);
 		}
 	}
-	
+
 
 }

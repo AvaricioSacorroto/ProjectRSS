@@ -7,16 +7,20 @@
     <tiles:importAttribute name="title"/> 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">  
 <title><!--<spring:message code="${title}"/>--> ${title}</title>  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="<c:url value="/resources/css/styles.css" />" rel="stylesheet">
-<script src="<c:url value="/resources/js/jscrip.js" />"></script>
+<script src="<c:url value="/resources/js/jscrip1.js" />"></script>
 </head>  
 <body>  
-        <div><tiles:insertAttribute name="header"/></div>  
-        <div style="float:left;padding:10px;width:15%;"><tiles:insertAttribute name="menu" /></div>  
-        <div style="float:left;padding:10px;width:80%;border-left:1px solid pink;">  
-        <tiles:insertAttribute name="body" /></div>  
-        <div style="clear:both"><tiles:insertAttribute name="footer" /></div>  
-  
+	<div class="template">
+	        <div class="header"><tiles:insertAttribute name="header"/></div>  
+	        <div class="main">
+		        <div class="menu"><tiles:insertAttribute name="menu" /></div>  
+		        <div class="body"><tiles:insertAttribute name="body" /></div> 
+		       <div class="space"></div>
+	        </div> 
+	        <div class="footer"><tiles:insertAttribute name="footer" /></div>  
+	</div>  
 </body> 
 </html>
 

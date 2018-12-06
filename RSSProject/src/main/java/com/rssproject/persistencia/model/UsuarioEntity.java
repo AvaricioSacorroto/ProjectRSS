@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -25,7 +26,10 @@ public class UsuarioEntity {
 	private String password;
 
 	private String rol;
+
+
 	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "usuarioId", nullable = false)
 	private List<UrlEntity> urls=new ArrayList<UrlEntity>();
 
 	public UsuarioEntity() {

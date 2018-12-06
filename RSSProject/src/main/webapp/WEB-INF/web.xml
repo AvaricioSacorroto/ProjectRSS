@@ -3,7 +3,7 @@
   <display-name>Rssproject</display-name>
   <welcome-file-list>
    
-   <welcome-file>index.jsp</welcome-file>
+   <welcome-file>/rrs</welcome-file>
  
   </welcome-file-list>
  
