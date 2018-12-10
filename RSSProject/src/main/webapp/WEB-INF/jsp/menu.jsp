@@ -1,3 +1,3 @@
 
-<p>Menu 1</p>  
-<p>Menu 2</p> 
+<p><a href="rrs">FEED</a></p>  
+<p><a href="user">Usuario</a></p> 

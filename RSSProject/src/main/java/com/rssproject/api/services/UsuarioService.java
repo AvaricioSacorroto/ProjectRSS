@@ -5,6 +5,7 @@ import java.util.List;
 import com.rssproject.api.modelo.Feed;
 import com.rssproject.api.modelo.Usuario;
 import com.rssproject.web.forms.UrlForm;
+import com.rssproject.web.forms.UserForm;
 import com.rssproject.web.forms.UsuarioForm;
 
 
@@ -12,7 +13,7 @@ public interface UsuarioService {
 
 	public void addUser(UsuarioForm usuarioForm);
 
-	public void updateUser(UsuarioForm usuarioForm);
+	public void updateUser(UserForm userForm);
 
 	public List<Usuario> listUsuarios();
 
@@ -25,4 +26,10 @@ public interface UsuarioService {
 	public List<Feed> getFeedFromId(Long id);
 
 	public void addURL(Long id, UrlForm urlForm);
+
+	public void removeUrl(UrlForm urlForm);
+
+	public UserForm getUserFormbyID(Long id);
+
+	public void promoteUser(long id);
 }

@@ -13,8 +13,12 @@ public interface UsuarioDAO {
 	public List<UsuarioEntity> listUsuarios();
 
 	public UsuarioEntity getUsuarioById(long id);
-	
+
 	public UsuarioEntity getUsuarioByUsername(String name);
-	
+
 	public void removeUsuario(long id);
+
+	public void removeUrl(long id, String url);
+
+	public void promoteUser(long id);
 }

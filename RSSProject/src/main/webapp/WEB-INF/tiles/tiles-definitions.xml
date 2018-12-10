@@ -29,4 +29,16 @@
         <put-attribute name="title" value="title.login" />  
         <put-attribute name="body" value="/WEB-INF/jsp/usuario.jsp" />  
     </definition>
+    
+      <definition name="user" extends="base.definition">  
+        <put-attribute name="title" value="title.login" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/user.jsp" />  
+    </definition>
+    
+    <definition name="admin" extends="base.definition">  
+        <put-attribute name="title" value="title.login" />  
+        <put-attribute name="body" value="/WEB-INF/jsp/admin.jsp" />  
+         <put-attribute name="menu" value="" /> 
+    </definition>
+    
 </tiles-definitions> 

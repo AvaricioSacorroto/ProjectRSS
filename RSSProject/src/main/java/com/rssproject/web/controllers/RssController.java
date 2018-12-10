@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.rssproject.api.modelo.Feed;
+import com.rssproject.api.services.UrlService;
 import com.rssproject.api.services.UsuarioService;
 import com.rssproject.web.forms.UrlForm;
 import com.rssproject.web.security.CustomUser;
@@ -27,6 +28,9 @@ import com.rssproject.web.validation.UrlFormValidator;
 public class RssController {
 	@Autowired
 	UsuarioService usuarioService;
+
+	@Autowired
+	UrlService urlService;
 
 	@Autowired
 	UrlFormValidator urlFormValidator;
@@ -68,6 +72,12 @@ public class RssController {
 		LOGGER.debug("URLFROM:" + urlForm.getUrl());
 		LOGGER.debug("URLFROM:" + urlForm.getId());
 		usuarioService.addURL(getCurrentUser().getId(), urlForm);
+		return verRRS(urlForm);
+	}
+
+	@RequestMapping(value = "/rrs", method = RequestMethod.POST, params = { "action=delete" })
+	public ModelAndView removeRRS(UrlForm urlForm) {
+		usuarioService.removeUrl(urlForm);
 		return verRRS(urlForm);
 	}
 

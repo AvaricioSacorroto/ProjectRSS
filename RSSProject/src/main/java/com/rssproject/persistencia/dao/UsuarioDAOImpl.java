@@ -9,11 +9,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.rssproject.persistencia.model.UrlEntity;
 import com.rssproject.persistencia.model.UsuarioEntity;
 
-
 @Repository("usuarioDAO")
-public class UsuarioDAOImpl implements UsuarioDAO{
+public class UsuarioDAOImpl implements UsuarioDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -62,5 +62,22 @@ public class UsuarioDAOImpl implements UsuarioDAO{
 		}
 	}
 
+	@Override
+	public void removeUrl(long id, String url) {
+		final Session session = this.sessionFactory.getCurrentSession();
+		final UsuarioEntity usuarioEntity = (UsuarioEntity) session.load(UsuarioEntity.class, id);
+		final Criteria criteria = session.createCriteria(UrlEntity.class);
+		criteria.add(Restrictions.eq("url", url));
+		criteria.add(Restrictions.eq("usuarioId", usuarioEntity));
+		final UrlEntity urlEntity = (UrlEntity) criteria.uniqueResult();
+		usuarioEntity.getUrls().remove(urlEntity);
+		session.delete(urlEntity);
+	}
+
+	@Override
+	public void promoteUser(long id) {
+		UsuarioEntity usuarioEntity = getUsuarioById(id);
+		usuarioEntity.setRol("ROLE_ADMIN");
+	}
 
 }

@@ -18,6 +18,7 @@ import com.rssproject.persistencia.dao.UsuarioDAO;
 import com.rssproject.persistencia.model.UrlEntity;
 import com.rssproject.persistencia.model.UsuarioEntity;
 import com.rssproject.web.forms.UrlForm;
+import com.rssproject.web.forms.UserForm;
 import com.rssproject.web.forms.UsuarioForm;
 import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
@@ -34,13 +35,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	@Transactional
 	public void addURL(Long id, UrlForm urlForm) {
-		System.out.println("USUARIO:" + usuarioDAO.getUsuarioById(id).getName());
-		System.out.println("URL to add:" + urlForm.getUrl());
+
 		UsuarioEntity usuarioEntity = usuarioDAO.getUsuarioById(id);
 		UrlEntity urlEntity = new UrlEntity(urlForm.getUrl());
 		urlEntity.setUsuarioId(usuarioEntity);
 		usuarioEntity.getUrls().add(urlEntity);
+
 	}
+
 
 	@Override
 	@Transactional
@@ -51,8 +53,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	@Transactional
-	public void updateUser(UsuarioForm usuarioForm) {
-		UsuarioEntity usuarioEntity = transformFormtoEntity(usuarioForm);
+	public void updateUser(UserForm userForm) {
+		UsuarioEntity usuarioEntity = userFormtoEntity(userForm);
+
 		usuarioDAO.updateUsuario(usuarioEntity);
 	}
 
@@ -73,7 +76,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional
 	public Usuario getUsuarioByName(String name) {
 		UsuarioEntity userEntity = usuarioDAO.getUsuarioByUsername(name);
-		System.out.println("UserEntity:" + userEntity);
 		Usuario usuario = transformUsuarioEntitytoUsuario(userEntity);
 		return usuario;
 	}
@@ -98,9 +100,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 			return null;
 		}
 		Usuario usuario = new Usuario();
+		usuario.setId(usuarioEntity.getId());
 		usuario.setName(usuarioEntity.getName());
 		usuario.setPassword(usuarioEntity.getPassword());
-		usuario.setRol(usuario.getRol());
+		usuario.setRol(usuarioEntity.getRol());
 		usuario.setFeeds(getFeeds(usuarioEntity.getUrls()));
 		return usuario;
 
@@ -110,7 +113,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Transactional
 	public List<Feed> getFeedFromId(Long id) {
 		Usuario usuario = getUsuarioById(id);
-		System.out.println("Usuario FIND:" + usuario.getName());
 		return usuario.getFeeds();
 	}
 
@@ -150,6 +152,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		customFeed.setLanguaje(feed.getLanguage());
 		customFeed.setLink(feed.getLink());
 		List<Entries> entries = getEntriesFromFeed(feed.getEntries());
+		customFeed.setUrl(url);
 
 		customFeed.setEntries(entries);
 
@@ -171,9 +174,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 		if (syndEntrie.getTitle() != null) {
 			entries.setTitle(syndEntrie.getTitle());
 		}
-		// if (syndEntrie.getPublishedDate().toString() == "") {
-		// entries.setDate(syndEntrie.getPublishedDate().toString());
-		// }
 		if (syndEntrie.getLink() != null) {
 			entries.setLink(syndEntrie.getLink());
 		}
@@ -191,4 +191,48 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return usuarioEntity;
 
 	}
+
+	private UsuarioEntity userFormtoEntity(UserForm userForm) {
+		UsuarioEntity usuarioEntity = new UsuarioEntity();
+		usuarioEntity.setId(userForm.getId());
+		usuarioEntity.setName(userForm.getName());
+		usuarioEntity.setPassword(userForm.getPassword());
+		usuarioEntity.setRol(userForm.getRol());
+		return usuarioEntity;
+
+	}
+
+	@Override
+	@Transactional
+	public void removeUrl(UrlForm urlForm) {
+		usuarioDAO.removeUrl(urlForm.getId(), urlForm.getUrl());
+	}
+
+	@Override
+	@Transactional
+	public UserForm getUserFormbyID(Long id) {
+		Usuario usuario = getUsuarioById(id);
+		UserForm userForm = usuariotoUserForm(usuario);
+		userForm.setRol(usuario.getRol());
+		userForm.setPassword(usuario.getPassword());
+		userForm.setId(id);
+		return userForm;
+	}
+
+	private UserForm usuariotoUserForm(Usuario usuario) {
+		UserForm userForm = new UserForm();
+		userForm.setName(usuario.getName());
+		userForm.setPassword(usuario.getPassword());
+		userForm.setRol(usuario.getRol());
+		return userForm;
+
+	}
+
+	@Override
+	@Transactional
+	public void promoteUser(long id) {
+		usuarioDAO.promoteUser(id);
+
+	}
+
 }

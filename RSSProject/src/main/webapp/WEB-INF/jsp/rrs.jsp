@@ -36,9 +36,12 @@
 		    <!--<p>Languaje:${feed.getLanguaje()}</p>-->
 		    <p><s:message code="homepage"/>:${feed.getLink()}</p>
 		    <p>ImageTitle:${feed.getImageTitle()}</p>
-		    <button class="hideFeed">Hide</button>
-            <button class="showFeed">Show</button>
-		
+		    
+            <form:form method="POST" id="rssForm" modelAttribute="urlForm" action="rrs">
+             <form:input type="hidden" value="${currentUser}" path="id"/>
+             <form:input type="hidden" value="${feed.getUrl()}" path="url"/>
+            <input type = "submit" name="action" value = "delete"/>
+		    </form:form>
 	 </div> 	  
 	    
 	 

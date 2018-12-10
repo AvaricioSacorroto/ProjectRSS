@@ -30,7 +30,7 @@ public class LoginFormController {
 		if (user != null) {
 			model.addObject("message", user.getName());
 		} else {
-			model.addObject("message", "ACCESO DINERO");
+			model.addObject("message", "ACCESO Denegado");
 		}
 		model.setViewName("accessDenied");
 		return model;

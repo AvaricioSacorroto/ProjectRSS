@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usuario {
+	private Long id;
 	private String name;
 	private String password;
 	private String rol;
@@ -11,6 +12,14 @@ public class Usuario {
 
 	public Usuario() {
 
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getName() {

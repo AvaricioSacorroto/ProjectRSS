@@ -2,6 +2,8 @@ package com.rssproject.web.forms;
 
 public class UsuarioForm {
 
+
+
 	private String name;
 
 	private String password;
@@ -11,6 +13,7 @@ public class UsuarioForm {
 	public UsuarioForm() {
 
 	}
+
 
 	public String getName() {
 		return name;

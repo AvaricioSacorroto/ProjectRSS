@@ -10,7 +10,7 @@ public class Feed {
 	private String link;
 	private String imageTitle;
 	private String imageUrl;
-
+	private String url;
 	List<Entries> entries = new ArrayList<>();
 
 	public Feed() {
@@ -63,6 +63,14 @@ public class Feed {
 
 	public void setEntries(List<Entries> entries) {
 		this.entries = entries;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 }

@@ -14,6 +14,10 @@
             access="IS_AUTHENTICATED_ANONYMOUSLY" />
             <intercept-url pattern="/rrs**"
             access="ROLE_USER" />
+            <intercept-url pattern="/user**"
+            access="ROLE_USER" />
+             <intercept-url pattern="/admin**"
+            access="ROLE_ADMIN" />
 	    <form-login login-page="/login"
 			default-target-url="/rrs"
 			authentication-failure-url="/login?action=error"
